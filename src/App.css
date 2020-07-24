@@ -1,72 +1,97 @@
-.App {
-  padding: 24px;
+
+html, body {
+  height: 100%;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-.list-group {
-  display: -ms-flexbox;
+body {
+  font: caption;
+  margin: 0;
   display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  padding-left: 0;
-  margin-bottom: 0;
-}
-.list-group-item {
-  position: relative;
-  display: block;
-  padding: 0.75rem 1.25rem;
-  margin-bottom: -1px;
-  background-color: #fff;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-}
-.list-group-flush .list-group-item {
-  border-right: 0;
-  border-left: 0;
-  border-radius: 0;
-}
-.list-group-flush:first-child .list-group-item:first-child {
-  border-top: 0;
+  flex-flow: column;
 }
 
-.flex-container {
+button {
+  background: dodgerblue;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  font-size: 20px;
+  outline: none;
+}
+
+input {
+  font-size: 20px;
+  border-radius: 5px;
+  border: 1px solid silver;
+  padding: 0 10px;
+}
+
+input::placeholder {
+  color: lightgray;
+}
+
+header {
+  background: lightgray;
+  display: flex;
+  padding: 10px;
+  font-weight: bold;
+  border-bottom: 1px solid silver;
+  box-shadow: 0px 10px 10px rgba(0,0,0,0.1);
+}
+
+.show-modal {
+  padding: 0px 12px 5px;
+  margin-right: 10px;
+  font-size: 30px;
+}
+
+.search {
+  flex-grow: 1;
+}
+
+.items {
+  flex-grow: 1;
+}
+
+.no-items {
+  font-weight: bold;
+  color: silver;
+  text-align: center;
+  width: 100%;
+  position: absolute;
+  top: 100px;
+  z-index: -1;
+}
+
+.modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
   display: flex;
   align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+  display: none;
 }
 
-.thumbnail {
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-  margin-right: 16px;
+.url {
+  flex-grow: 1;
+  width: 100%;
+  margin: 0 25px 15px;
+  padding: 10px;
 }
 
-.list-group-item {
-  cursor: pointer
+.modal button {
+  padding: 10px;
 }
-.list-group-item:hover {
-  background-color: #eee;
+
+.close-modal {
+  background: white;
+  color: black;
+  margin-left: 15px;
+}
+
+.add-item {
+  margin-left: 25px;
 }
