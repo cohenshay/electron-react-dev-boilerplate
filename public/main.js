@@ -1,10 +1,12 @@
 const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
-
+const {ipcMain} = electron;
 const windowStateKeeper = require('electron-window-state');
 const path = require('path');
 const isDev = require('electron-is-dev');
+const os = require('os')
+const readItem = require('./readItem');
 
 let mainWindow;
 
@@ -19,10 +21,15 @@ function createWindow() {
         width: state.width,
         height: state.height,
         minWidth: 350,
-        maxWidth: 650,
         minHeight: 300,
         webPreferences: {nodeIntegration: true}
     });
+
+    BrowserWindow.addDevToolsExtension(
+        'C:\\Users\\cohen\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\4.8.2_0'
+    )
+
+    mainWindow.webContents.openDevTools();
 
     mainWindow.loadURL(isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`);
 
@@ -31,6 +38,11 @@ function createWindow() {
     state.manage(mainWindow)
 }
 
+ipcMain.on('new-item', (e, url) => {
+    readItem(url, item => {
+        e.sender.send('new-item-success', item)
+    });
+})
 
 
 app.on('ready', createWindow);

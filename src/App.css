@@ -3,7 +3,7 @@ html, body {
   height: 100%;
 }
 
-body {
+.app {
   font: caption;
   margin: 0;
   display: flex;
@@ -49,8 +49,9 @@ header {
   flex-grow: 1;
 }
 
-.items {
+.main {
   flex-grow: 1;
+  overflow-y: scroll;
 }
 
 .no-items {
@@ -72,7 +73,6 @@ header {
   align-items: center;
   align-content: center;
   flex-wrap: wrap;
-  display: none;
 }
 
 .url {
@@ -90,8 +90,43 @@ header {
   background: white;
   color: black;
   margin-left: 15px;
+  display: inline;
 }
 
 .add-item {
   margin-left: 25px;
+  opacity: 1;
+  display: inline;
+}
+
+.item-disabled {
+   opacity: 0.5%;
+ }
+
+.modal-disabled {
+  display: none;
+}
+
+.read-item{
+  display: flex;
+  align-items: center;
+  align-content: center;
+  border-bottom: lightgray 2px solid;
+  background: #FAFAFA;
+  padding: 10px;
+  border-left: 10px solid grey;
+  -webkit-user-select: none;
+}
+
+.read-item:hover{
+  background-color: #EEE;
+}
+
+.read-item.selected {
+  border-left-color: dodgerblue;
+}
+
+.read-item img{
+  width: 20%;
+  margin-right: 25px;
 }

@@ -1,10 +1,11 @@
 import React from 'react';
 
-function header(props){
-    return(
+function header(props) {
+    const {showModal,searchItem} = props;
+    return (
         <header>
-            <button className={'show-modal'}>+</button>
-            <input className={'search'} type={'text'} placeholder={'Search'}/>
+            <button className={'show-modal'} onClick={() => showModal(true)}>+</button>
+            <input className={'search'} type={'text'} placeholder={'Search'} onChange={e=>searchItem(e.target.value)}/>
         </header>
     )
 }
