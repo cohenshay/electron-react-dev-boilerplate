@@ -8,7 +8,7 @@ function modal(props) {
         inputFocused.current.focus();
     }, [])
     return (
-        <div className={'modal'} onKeyUp={(e) => e.key == "Enter" ? addItem(url) : ""}>
+        <div className={'modal'} onKeyUp={(e) => e.key === "Enter" ? addItem(url) : ""}>
             <input ref={inputFocused} className={'url'} onChange={(e) => setUrl(e.target.value)} type={'text'}
                    placeholder={'Enter UTL'}/>
             <button className={`add-item ${enabled ? '' : 'item-disabled'}`} disabled={!enabled} onClick={() => addItem(url)}>

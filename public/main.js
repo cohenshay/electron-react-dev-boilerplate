@@ -26,7 +26,7 @@ function createWindow() {
     });
 
     BrowserWindow.addDevToolsExtension(
-        'C:\\Users\\cohen\\AppData\\Local\\Google\\Chrome\\User Data\\Default\\Extensions\\fmkadmapgofadopljbjfkapdkoienihi\\4.8.2_0'
+      path.join(os.homedir(), '/AppData/Local/Google/Chrome/User Data/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.1.0_0/')
     )
 
     mainWindow.webContents.openDevTools();
