@@ -9,6 +9,8 @@ fs.readFile(`./src/reader.js`, (err, data) => {
 function item (props) {
   const { item, isSelected, setSelected } = props
 
+
+
   return (
     <div onDoubleClick={() => dblClickHandler(item)}
          className={`read-item ${isSelected ? 'selected' : ''}`}
@@ -18,6 +20,8 @@ function item (props) {
     </div>
   )
 }
+
+
 
 const dblClickHandler = (item) => {
   let readerWin = window.open(item.url, '',
