@@ -2,7 +2,7 @@ import React from 'react'
 import fs from 'fs'
 
 let reader
-fs.readFile(`${__dirname}/reader.js`, (err, data) => {
+fs.readFile(`./src/reader.js`, (err, data) => {
   reader = data.toString()
 })
 
