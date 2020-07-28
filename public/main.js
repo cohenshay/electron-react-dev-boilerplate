@@ -6,7 +6,7 @@ const windowStateKeeper = require('electron-window-state');
 const path = require('path');
 const isDev = require('electron-is-dev');
 const os = require('os')
-const readItem = require('./readItem');
+const capturePage = require('./capturePage');
 
 let mainWindow;
 
@@ -39,7 +39,7 @@ function createWindow() {
 }
 
 ipcMain.on('new-item', (e, url) => {
-    readItem(url, item => {
+    capturePage(url, item => {
         e.sender.send('new-item-success', item)
     });
 })
