@@ -1,3 +1,5 @@
+// Adds button 'Done' to the window with a callback to delete the item
+
 let readitClose = document.createElement('div')
 readitClose.innerText = 'Done'
 
@@ -10,7 +12,7 @@ readitClose.style.fontWeight = 'bold'
 readitClose.style.background = 'dodgerblue'
 readitClose.style.color = 'white'
 readitClose.style.borderRadius = '5px'
-readitClose.style.cursor = 'default'
+readitClose.style.cursor = 'pointer'
 readitClose.style.boxShadow = '2px 2px 2px rgba(0,0,0,0.2)'
 
 readitClose.onclick = e => {

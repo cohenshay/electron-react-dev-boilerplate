@@ -4,21 +4,29 @@ import Modal from './Modal'
 import Item from './Item'
 import Header from './Header'
 import useEvent from './hooks/useEvent'
-
+import './menu';
 const electron = window.require('electron')
 const { ipcRenderer } = electron
 
 function App () {
 
-  const [items, setItems] = useState(
-    JSON.parse(localStorage.getItem('readIt-items')) || [])
+  const itemsFromStorage = JSON.parse(localStorage.getItem('readIt-items')) ||  [];
+
+  const [items, setItems] = useState(itemsFromStorage)
+  //Item after search condition
   const [filteredItems, setFilterItems] = useState([])
+  //Show all items or after search condition
   const [hasFilter, setHasFilter] = useState(false)
-  const [selectedItem, setSelectedItem] = useState(null)
+  //Adding css
+  const [selectedItem, setSelectedItem] = useState(
+    !!itemsFromStorage[0] ? itemsFromStorage[0].url : null)
+  //Display modal on/off
   const [showModal, toggleModalDisplay] = useState(false)
+  //Modal button disabled
   const [enableModal, toggleModalAppearance] = useState(true)
   const itemsSource = hasFilter ? [...filteredItems] : [...items]
 
+  //Select the next item
   const keyDownHandler = (e) => {
     const selectedItemIndex = itemsSource.findIndex(
       item => item.url === selectedItem)
@@ -29,25 +37,51 @@ function App () {
     }
   }
 
+  //Gets a message from item window
   const messageHandler = e => {
     const { action } = e.data
     switch (action) {
       case 'delete-item': {
-        setItems(items.filter(item => item.url != selectedItem))
+        //Remove from list
+        const removeItem = items.filter(item => item.url !== selectedItem)
+        setItems(removeItem)
+
+        //Set new selectedItem
+        if (removeItem.length) {
+          const itemIndex = items.findIndex(item => item.url === selectedItem)
+          const newSelectedItemIndex = (itemIndex === 0) ? 0 : itemIndex - 1
+          setSelectedItem(removeItem[newSelectedItemIndex])
+        }
+
+        //Close window
+        e.source.close()
+        break;
       }
       default:
         return
     }
   }
 
-  useState(() => {
+  useEffect(() => {
     ipcRenderer.on('new-item-success', (e, newItem) => {
+      //Close modal
       toggleModalDisplay(false)
-      toggleModalAppearance(true)
-      setItems(prevArray => [...prevArray, newItem])
-    })
-  }, [])
 
+      //Enable modal button for next time open
+      toggleModalAppearance(true)
+
+      //Add new item to the list
+      setItems(prevArray => [...prevArray, newItem])
+    });
+
+    //Creates a function on global window (which is shared between all renderer processes) in order to create new item by menu.
+    window.newItem = () =>{
+      toggleModalDisplay(true)
+    }
+
+  }, []);
+
+  //Save items to local storage after change
   useEffect(() => {
     saveItems(items)
   }, [items])
@@ -77,17 +111,22 @@ function App () {
 
 const searchItem = (title, items, setFilterItems, setHasFilter) => {
   const filteredItems = items.filter(
-    item => item.title.toLowerCase().includes(title))
-  setFilterItems(filteredItems)
+    item => item.title.toLowerCase().includes(title));
+
+  setFilterItems(filteredItems);
+
   !!title ? setHasFilter(true) : setHasFilter(false)
 }
 
+//Save items to local storage
 const saveItems = items => {
   localStorage.setItem('readIt-items', JSON.stringify(items))
 }
 
 const addItem = (url, toggleModalAppearance) => {
   toggleModalAppearance(false)
+
+  //Send item to main process in order to capture the screen
   ipcRenderer.send('new-item', url)
 }
 
