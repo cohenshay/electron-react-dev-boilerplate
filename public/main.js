@@ -5,7 +5,8 @@ const {ipcMain} = electron;
 const windowStateKeeper = require('electron-window-state');
 const path = require('path');
 const isDev = require('electron-is-dev');
-const os = require('os')
+const os = require('os');
+const fs = require('fs')
 const capturePage = require('./capturePage');
 
 let mainWindow;
@@ -26,9 +27,18 @@ function createWindow() {
         webPreferences: {nodeIntegration: true}
     });
 
-    // BrowserWindow.addDevToolsExtension(
-    //   path.join(os.homedir(), '/AppData/Local/Google/Chrome/User Data/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.1.0_0/')
-    // )
+    //Add react-dev-tools in DEV mode
+    if(isDev) {
+        const reactDevToolsPath = path.join(os.homedir(), '/AppData/Local/Google/Chrome/User Data/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/');
+        fs.readdir(reactDevToolsPath, function (err, directory) {
+            const devToolsVersion = (directory[0].toString());
+            BrowserWindow.addDevToolsExtension(
+                path.join(reactDevToolsPath, devToolsVersion)
+            )
+        });
+    }
+
+
 
     mainWindow.webContents.openDevTools();
 
