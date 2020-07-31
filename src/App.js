@@ -84,6 +84,9 @@ function App () {
   //Save items to local storage after change
   useEffect(() => {
     saveItems(items)
+    if(!selectedItem && items.length){
+      setSelectedItem(items[0])
+    }
   }, [items])
 
   useEvent('keydown', keyDownHandler)
@@ -94,13 +97,16 @@ function App () {
       <Header showModal={toggleModalDisplay}
               searchItem={title => searchItem(title, itemsSource,
                 setFilterItems, setHasFilter)}/>
+
       <div className={'main'}>
-        {itemsSource.length ?
+        {!showModal && itemsSource.length ?
           itemsSource.map((item, index) => <Item key={index} item={item}
                                                  isSelected={selectedItem ===
                                                  item.url}
                                                  setSelected={setSelectedItem}/>)
           : <p className={'no-items'}>No Items</p>}
+
+
         {showModal &&
         <Modal enabled={enableModal} showModal={toggleModalDisplay}
                addItem={(url) => addItem(url, toggleModalAppearance)}/>}
