@@ -11,6 +11,7 @@ const capturePage = require('./capturePage');
 let mainWindow;
 
 function createWindow() {
+
     let state = windowStateKeeper({
         defaultWidth: 500, defaultHeight: 650
     })
