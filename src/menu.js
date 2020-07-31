@@ -14,6 +14,21 @@ const template = [
         accelerator: 'CmdOrCtrl+Enter',
         click: () => window.openItem(),
       },
+      {
+        label: 'Delete Item',
+        accelerator: 'CmdOrCtrl+Backspace',
+        click: () => window.deleteItem(),
+      },
+      {
+        label: 'Open in Browser',
+        accelerator: 'CmdOrCtrl+Shift+O',
+        click: () => window.openItemNative(),
+      },
+      {
+        label: 'Search Items',
+        accelerator: 'CmdOrCtrl+S',
+        click: () => window.searchItems(),
+      },
     ],
   },
   {
