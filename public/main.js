@@ -25,9 +25,9 @@ function createWindow() {
         webPreferences: {nodeIntegration: true}
     });
 
-    BrowserWindow.addDevToolsExtension(
-      path.join(os.homedir(), '/AppData/Local/Google/Chrome/User Data/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.1.0_0/')
-    )
+    // BrowserWindow.addDevToolsExtension(
+    //   path.join(os.homedir(), '/AppData/Local/Google/Chrome/User Data/Default/Extensions/fmkadmapgofadopljbjfkapdkoienihi/4.1.0_0/')
+    // )
 
     mainWindow.webContents.openDevTools();
 
